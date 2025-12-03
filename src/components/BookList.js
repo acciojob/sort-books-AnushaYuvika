@@ -76,14 +76,44 @@ export default function BooksList() {
   const dispatch = useDispatch();
   const { list, loading, error, sortBy, order } = useSelector((state) => state.books);
 
-  // Dummy data as fallback
-  const dummyBooks = [
-    { title: "The Great Gatsby", author: "F. Scott Fitzgerald", publisher: "Scribner", isbn: "9780743273565" },
-    { title: "1984", author: "George Orwell", publisher: "Secker & Warburg", isbn: "9780451524935" },
-    { title: "To Kill a Mockingbird", author: "Harper Lee", publisher: "J.B. Lippincott & Co.", isbn: "9780061120084" }
-  ];
 
-  const displayList = list.length > 0 ? list : dummyBooks;
+
+
+  const sampleTitles = [
+  "The Silent Patient", "Where the Crawdads Sing", "The Midnight Library",
+  "Project Hail Mary", "The Great Alone", "Dune", "The Night Circus",
+  "Circe", "Normal People", "Little Fires Everywhere"
+];
+
+const sampleAuthors = [
+  "Alex Michaelides", "Delia Owens", "Matt Haig", "Andy Weir",
+  "Kristin Hannah", "Frank Herbert", "Erin Morgenstern",
+  "Madeline Miller", "Sally Rooney", "Celeste Ng"
+];
+
+const samplePublishers = [
+  "Penguin Random House", "HarperCollins", "Simon & Schuster",
+  "Macmillan", "Hachette", "Scribner", "Bloomsbury"
+];
+
+const dummyBooks = Array.from({ length: 20 }, (_, i) => ({
+  title: sampleTitles[i % sampleTitles.length],
+  author: sampleAuthors[i % sampleAuthors.length],
+  publisher: samplePublishers[i % samplePublishers.length],
+  isbn: `978-0000000${i + 1}`
+}));
+
+const displayList = list.length > 0 ? list : dummyBooks;
+
+  // const dummyBooks = Array.from({ length: 20 }, (_, i) => ({
+  //   title: `Book Title ${i + 1}`,
+  //   author: `Author ${i + 1}`,
+  //   publisher: `Publisher ${i + 1}`,
+  //   isbn: `ISBN${i + 1}`
+  // }));
+
+  // const displayList = list.length > 0 ? list : dummyBooks;
+
 
   useEffect(() => {
     dispatch(fetchBooks());
@@ -102,11 +132,11 @@ export default function BooksList() {
 
   return (
     <div className="page">
-      <h2>NYT Hardcover Fiction Books</h2>
+      <h1>Books List</h1>
 
       <div style={{ marginBottom: "10px" }}>
         <label>
-          Sort By:{" "}
+          Sort by:{" "}
           <select value={sortBy} onChange={(e) => dispatch(setSortBy(e.target.value))}>
             <option value="title">Title</option>
             <option value="author">Author</option>
@@ -121,6 +151,7 @@ export default function BooksList() {
             <option value="desc">Descending</option>
           </select>
         </label>
+        
       </div>
 
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
