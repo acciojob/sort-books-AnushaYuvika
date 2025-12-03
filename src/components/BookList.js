@@ -96,7 +96,7 @@ const samplePublishers = [
   "Macmillan", "Hachette", "Scribner", "Bloomsbury"
 ];
 
-const dummyBooks = Array.from({ length: 20 }, (_, i) => ({
+const dummyBooks = Array.from({ length: 15 }, (_, i) => ({
   title: sampleTitles[i % sampleTitles.length],
   author: sampleAuthors[i % sampleAuthors.length],
   publisher: samplePublishers[i % samplePublishers.length],
